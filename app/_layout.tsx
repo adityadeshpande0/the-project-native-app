@@ -35,12 +35,10 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <View>
-          <LoginScreen />
-        </View>
-      </ThemeProvider>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <View>
+        <LoginScreen />
+      </View>
     </SafeAreaView>
   );
 }

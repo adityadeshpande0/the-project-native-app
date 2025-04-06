@@ -1,7 +1,26 @@
+import CustomButton from "@/components/reusables/CustomButton";
+import CustomInputField from "@/components/reusables/CustomInputField";
 import { StyleSheet, Text } from "react-native";
+import { View } from "react-native";
 
 export default function LoginScreen() {
-  return <Text style={{ color: "white" }}>Login Screen</Text>;
+  return (
+    <View>
+      <Text>Login to continue</Text>
+      <CustomInputField
+        label="Email"
+        placeholder="Enter your email"
+        onChangeText={(text) => console.log(text)}
+      />
+      <CustomInputField
+        label="Password"
+        placeholder="Enter your password"
+        onChangeText={(text) => console.log(text)}
+        secureTextEntry={true}
+      />
+      <CustomButton title={"hello"} onPress={() => alert("pressed")} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

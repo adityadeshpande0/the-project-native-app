@@ -1,5 +1,12 @@
-import React from "react";
-import { StyleSheet, TextInput, View, Text } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+import Icon from "react-native-vector-icons/Feather";
 
 interface CustomInputFieldProps {
   label?: string;
@@ -27,25 +34,41 @@ export default function CustomInputField({
   errorMessage = "",
   isError = false,
   isDisabled = false,
-  isLoading = false,
-  isSuccess = false,
-  isWarning = false,
 }: CustomInputFieldProps) {
+  const [isPasswordVisible, setPasswordVisible] = useState(false);
+
+  const showPasswordToggle = secureTextEntry;
+
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
-      <TextInput
-        style={[
-          styles.input,
-          isError && { borderColor: styles.errorLabel.color },
-        ]}
-        placeholder={placeholder}
-        placeholderTextColor="#888"
-        value={value}
-        onChangeText={onChangeText}
-        secureTextEntry={secureTextEntry}
-        editable={!isDisabled}
-      />
+      {label && <Text style={styles.label}>{label}</Text>}
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={[
+            styles.input,
+            isError && { borderColor: styles.errorLabel.color },
+            showPasswordToggle && { paddingRight: 40 },
+          ]}
+          placeholder={placeholder}
+          placeholderTextColor="#888"
+          value={value}
+          onChangeText={onChangeText}
+          secureTextEntry={showPasswordToggle && !isPasswordVisible}
+          editable={!isDisabled}
+        />
+        {showPasswordToggle && (
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => setPasswordVisible(!isPasswordVisible)}
+          >
+            <Icon
+              name={isPasswordVisible ? "eye" : "eye-off"}
+              size={20}
+              color="#555"
+            />
+          </TouchableOpacity>
+        )}
+      </View>
       <Text style={[styles.errorLabel, !isError && styles.hiddenError]}>
         {errorMessage || " "}
       </Text>
@@ -77,5 +100,14 @@ const styles = StyleSheet.create({
   },
   hiddenError: {
     color: "transparent",
+  },
+  inputContainer: {
+    position: "relative",
+  },
+
+  iconContainer: {
+    position: "absolute",
+    right: 10,
+    top: 10,
   },
 });

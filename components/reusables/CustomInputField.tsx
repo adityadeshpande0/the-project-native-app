@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
-
+import * as Haptics from "expo-haptics";
 interface CustomInputFieldProps {
   label?: string;
   placeholder?: string;
@@ -38,7 +38,11 @@ export default function CustomInputField({
   const [isPasswordVisible, setPasswordVisible] = useState(false);
 
   const showPasswordToggle = secureTextEntry;
-
+  useEffect(() => {
+    if (isError) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+    }
+  }, [isError]);
   return (
     <View>
       {label && <Text style={styles.label}>{label}</Text>}

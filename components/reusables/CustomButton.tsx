@@ -52,9 +52,13 @@ export default function CustomButton({
       onPressIn={onPressIn}
     >
       <View style={styles.content}>
-        {icon && iconPosition === "left" && <View style={styles.icon}>{icon}</View>}
+        {icon && iconPosition === "left" && (
+          <View style={styles.icon}>{icon}</View>
+        )}
         <Text style={[styles.buttonText, textStyle]}>{title}</Text>
-        {icon && iconPosition === "right" && <View style={styles.icon}>{icon}</View>}
+        {icon && iconPosition === "right" && (
+          <View style={styles.icon}>{icon}</View>
+        )}
       </View>
     </TouchableOpacity>
   );

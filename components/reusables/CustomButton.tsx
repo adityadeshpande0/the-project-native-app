@@ -1,18 +1,18 @@
 import React from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import {
-  StyleSheet,
-  TextInput,
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from "react-native-responsive-dimensions";
 
 interface CustomButtonProps {
   title: string;
-  onPress: () => void;
+  onPress?: () => void;
+  onLongPress?: () => void;
+  onPressIn?: () => void;
   disabled?: boolean;
-  color?: string;
+  onPressOut?: () => void;
   style?: object;
 }
 
@@ -20,39 +20,41 @@ export default function CustomButton({
   title,
   onPress,
   disabled = false,
-  color = "#007BFF",
+  onLongPress,
+  onPressOut,
+  onPressIn,
   style = {},
 }: CustomButtonProps) {
   return (
     <TouchableOpacity
       onPress={onPress}
+      onPressOut={onPressOut}
       disabled={disabled}
-      style={[styles.button, style]}
+      style={[styles.button, style, disabled && styles.buttonDisabled]}
+      activeOpacity={0.7}
+      onLongPress={onLongPress}
+      onPressIn={onPressIn}
     >
-      <Text style={{ color: disabled ? "#ccc" : "#fff", textAlign: "center" }}>
-        {title}
-      </Text>
+      <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
+    backgroundColor: "#654AFF",
+    height: responsiveHeight(5),
+    width: responsiveWidth(100),
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: responsiveHeight(0.5),
+  },
+  buttonText: {
     color: "#fff",
-    backgroundColor: "#007BFF",
+    fontSize: responsiveFontSize(2),
+    textTransform: "capitalize",
   },
-  label: {
-    marginBottom: 8,
-    fontSize: 16,
-    color: "#333",
-  },
-  input: {
-    height: 40,
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingHorizontal: 8,
-    fontSize: 16,
-    color: "#000",
+  buttonDisabled: {
+    backgroundColor: "#ccc",
   },
 });

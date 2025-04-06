@@ -1,12 +1,14 @@
 import CustomButton from "@/components/reusables/CustomButton";
 import CustomInputField from "@/components/reusables/CustomInputField";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, Image } from "react-native";
 import { View } from "react-native";
 
 export default function LoginScreen() {
   return (
     <View>
-      <Text>Login to continue</Text>
+      <View style={styles.logoContainer}>
+        <Text style={styles.titleText}>The Project</Text>
+      </View>
       <CustomInputField
         label="Email"
         placeholder="Enter your email"
@@ -18,26 +20,27 @@ export default function LoginScreen() {
         onChangeText={(text) => console.log(text)}
         secureTextEntry={true}
       />
-      <CustomButton title={"hello"} onPress={() => alert("pressed")} />
+      <CustomButton
+        title="Login"
+        onLongPress={() => alert("long press")}
+        disabled={false}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  logoContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: 10,
+  },
+  titleText: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
   stepContainer: {
     gap: 8,
     marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
   },
 });

@@ -1,5 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -13,7 +21,11 @@ interface CustomButtonProps {
   onPressIn?: () => void;
   disabled?: boolean;
   onPressOut?: () => void;
-  style?: object;
+  activeOpacity?: number;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  icon?: React.ReactNode;
+  iconPosition?: "left" | "right";
 }
 
 export default function CustomButton({
@@ -23,7 +35,11 @@ export default function CustomButton({
   onLongPress,
   onPressOut,
   onPressIn,
+  activeOpacity = 0.7,
   style = {},
+  textStyle = {},
+  icon,
+  iconPosition = "left",
 }: CustomButtonProps) {
   return (
     <TouchableOpacity
@@ -31,11 +47,15 @@ export default function CustomButton({
       onPressOut={onPressOut}
       disabled={disabled}
       style={[styles.button, style, disabled && styles.buttonDisabled]}
-      activeOpacity={0.7}
+      activeOpacity={activeOpacity}
       onLongPress={onLongPress}
       onPressIn={onPressIn}
     >
-      <Text style={styles.buttonText}>{title}</Text>
+      <View style={styles.content}>
+        {icon && iconPosition === "left" && <View style={styles.icon}>{icon}</View>}
+        <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+        {icon && iconPosition === "right" && <View style={styles.icon}>{icon}</View>}
+      </View>
     </TouchableOpacity>
   );
 }
@@ -47,6 +67,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: responsiveHeight(0.5),
+    flexDirection: "row",
+    paddingHorizontal: responsiveWidth(2),
   },
   buttonText: {
     color: "#fff",
@@ -55,5 +77,12 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     backgroundColor: "#bab3e5",
+  },
+  content: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  icon: {
+    marginHorizontal: responsiveWidth(1),
   },
 });

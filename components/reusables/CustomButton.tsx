@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#654AFF",
     height: responsiveHeight(5),
-    width: responsiveWidth(100),
     justifyContent: "center",
     alignItems: "center",
     borderRadius: responsiveHeight(0.5),
@@ -55,6 +54,6 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
   buttonDisabled: {
-    backgroundColor: "#ccc",
+    backgroundColor: "#bab3e5",
   },
 });
